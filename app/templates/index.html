@@ -2,7 +2,7 @@
 
 {% block content %}
         {% if current_user.is_authenticated %}
-            <h1>Hi, {{ current_user.username }}!</h1>
+            <div class="h2">Hi, {{ current_user.username }}!</div>
             {% if form %}
             <form action="" method="post">
                 {{ form.hidden_tag() }}
@@ -22,7 +22,7 @@
                 {% endfor %}
                 {% if prev_url %}
                 <a href="{{ prev_url }}">Newer Posts</a>
-                    {% endif %}|
+                    {% endif %}
                 {% if next_url %}
                 <a href="{{ next_url }}">Older Posts</a>
                     {% endif %}

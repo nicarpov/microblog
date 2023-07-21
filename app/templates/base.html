@@ -6,27 +6,41 @@
       {% else %}
       <title>Welcome to Microblog</title>
       {% endif %}
+        <link href="{{ url_for('static', filename="css/bootstrap.min.css") }}" rel="stylesheet"
+              integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+              crossorigin="anonymous">
     </head>
     <body>
-        <div>Microblog: <a href="{{ url_for('index') }}">Home</a>
-        | {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Login</a></div>
-        {% else %}
-                <img src="{{ current_user.avatar(16) }}">
-                <a href="{{ url_for('user', username=current_user.username) }}">{{ current_user.username }}</a> |
-                <a href="{{ url_for('logout') }}">Logout</a></div>
-        {% endif %}
-        | <a href="{{ url_for('explore') }}">Explore</a>
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li> {{ message }} </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
+        <div class="container">
+            <div class="navbar">
+                <a class='navbar-brand' href="{{ url_for('index') }}">Home</a>
+                <a class='navbar-button' href="{{ url_for('explore') }}">Explore</a>
+
+                 {% if current_user.is_anonymous %}
+                    <a href="{{ url_for('login') }}">Login</a>
+                {% else %}
+                        <div class="navbar-button">
+                            <img src="{{ current_user.avatar(16) }}">
+                            <a href="{{ url_for('user', username=current_user.username) }}">{{ current_user.username }}</a>
+                        </div>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                {% endif %}
+
+            </div>
+
+            <hr>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+
+                {% for message in messages %}
+                <div class="alert alert-info" role="alert">{{ message }}</div>
+                {% endfor %}
+            
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </div>
+
+    <script src="{{ url_for('static', filename="js/bootstrap.bundle.min.js") }}" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     </body>
 </html>
